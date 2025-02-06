@@ -8,3 +8,4 @@ tensorflow_hub==0.16.0
 jsonschema==4.19.2
 tensorflow_hub
 tf_keras
+tensorflow_datasets
