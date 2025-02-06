@@ -2,6 +2,9 @@
 
 A deep learning model that classifies 102 different types of flowers using MobileNetV2 architecture.
 
+## Live Demo
+Try the live demo here: [Flower Classifier App](https://flower-classefier-4kggmmkzevhvy43qwqo4fd.streamlit.app/)
+
 ## Overview
 
 This project uses transfer learning with MobileNetV2 to classify flowers from the Oxford Flowers 102 dataset. The model achieves classification by utilizing a pre-trained model and adding custom classification layers.
