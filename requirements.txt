@@ -6,3 +6,5 @@ tensorflow==2.18.0
 Pillow==11.1.0
 tensorflow_hub==0.16.0
 jsonschema==4.19.2
+tensorflow_hub
+tf_keras
