@@ -1,10 +1,14 @@
-
 import tensorflow as tf
 from predict import predict
 from load_class import load_class_names
 import argparse
 from tf_keras.models import load_model
 import tensorflow_hub as hub
+import os
+import sys
+from initiate_model import initialize_model
+
+    
 
 def main():
     parser = argparse.ArgumentParser(description="Flower Classifier Prediction")
@@ -14,6 +18,21 @@ def main():
     parser.add_argument("--category_names", type=str, help="Path to a JSON file mapping labels to class names")
 
     args = parser.parse_args()
+
+    if not os.path.exists(args.model_path):
+        print(f"Model not found at {args.model_path}")
+        user_input = input("Would you like to train a new model? (y/n): ")
+        if user_input.lower() == 'y':
+            print("Model not found. Initializing new model...")
+            try:
+                initialize_model()
+                print("Model training completed successfully!")
+            except Exception as e:
+                print(f"Error during model initialization: {str(e)}")
+                sys.exit(1)
+        else:
+            print("Cannot proceed without a model. Exiting...")
+            sys.exit(1)
 
     try:
         custom_objects = {
