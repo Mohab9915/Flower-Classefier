@@ -1,0 +1,12 @@
+streamlit
+numpy
+pandas
+matplotlib
+tensorflow
+Pillow
+argparse
+tf_keras
+sys
+os
+tensorflow_hub
+json
