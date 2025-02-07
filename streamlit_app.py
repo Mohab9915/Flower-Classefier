@@ -11,6 +11,13 @@ import numpy as np
 import json
 
 def load_model_for_streamlit():
+    """
+    Load or initialize the model for Streamlit app
+    Checks if model exists, trains if needed
+    
+    Returns:
+        loaded tensorflow model
+    """
     model_path = 'flower_classifier_model.h5'
     if not os.path.exists(model_path):
         st.warning("Model not found. Training new model...")
@@ -21,10 +28,22 @@ def load_model_for_streamlit():
     return load_model(model_path, custom_objects=custom_objects, compile=False)
 
 def main():
+    """
+    Main function for Streamlit UI application
+    Handles:
+    - UI layout and configuration
+    - Model loading
+    - Image upload and processing
+    - Displaying predictions
+    """
+    # Configure page settings
     st.set_page_config(page_title="Flower Classifier", page_icon="🌸", layout="wide")
+    
+    # Set up main UI elements
     st.title("🌸 Flower Classifier")
     st.write("Upload an image of a flower and let AI identify it!")
 
+    # Sidebar configuration
     st.sidebar.title("About")
     st.sidebar.info("This application uses a deep learning model based on MobileNetV2 to classify 102 different types of flowers with high accuracy.")
     
@@ -33,8 +52,10 @@ def main():
     category_file = st.sidebar.file_uploader("Upload custom category names (JSON)", type=['json'])
 
     try:
+        # Load model and category names
         model = load_model_for_streamlit()
         if category_file is not None:
+            # Load custom categories if provided
             class_names = json.loads(category_file.getvalue().decode('utf-8'))
             st.sidebar.success("Custom categories loaded!")
         else:
@@ -43,6 +64,7 @@ def main():
         st.error(f"Error loading model or categories: {str(e)}")
         return
 
+    # Handle image upload and prediction
     uploaded_file = st.file_uploader("Choose a flower image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
